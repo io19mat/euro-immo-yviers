@@ -1,0 +1,93 @@
+<% data = load_content("gallery") %>
+
+<section class="bg-stone-50 px-6 pt-20 pb-8 text-center text-stone-900 md:pt-24 md:pb-10">
+  <div class="mx-auto max-w-3xl">
+    <p class="mb-3 text-sm font-medium uppercase tracking-[0.25em] text-amber-800">Gallery</p>
+    <h1 class="font-serif text-4xl tracking-tight md:text-5xl"><%= data["page_title"] %></h1>
+    <p class="mt-4 text-lg text-stone-600"><%= data["page_subtitle"] %></p>
+  </div>
+</section>
+
+<main class="bg-stone-50 px-6 pt-8 pb-12 text-stone-900 md:pt-10 md:pb-16" data-controller="gallery" data-action="keydown@window->gallery#navigate">
+  <div class="mx-auto max-w-7xl">
+    <% data["sections"].each do |section| %>
+      <section class="mb-16 last:mb-0">
+        <div class="mb-7 flex items-end justify-between gap-4">
+          <h2 class="font-serif text-2xl tracking-tight md:text-3xl"><%= section["title"] %></h2>
+          <span class="text-sm text-stone-500"><%= section["images"].length %> photos</span>
+        </div>
+
+        <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          <% section["images"].each do |image| %>
+            <button
+              type="button"
+              class="group relative block w-full overflow-hidden rounded-2xl bg-stone-200 text-left shadow-lg shadow-stone-900/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-700 focus-visible:ring-offset-4 focus-visible:ring-offset-stone-50"
+              aria-label="View <%= image["alt"] %> larger"
+              data-gallery-target="image"
+              data-gallery-image-url="<%= image_path(image["image"]) %>"
+              data-gallery-alt="<%= image["alt"] %>"
+              data-gallery-caption="<%= image["caption"] %>"
+              data-action="click->gallery#open"
+            >
+              <%= image_tag image_path(image["image"]), alt: image["alt"], class: "aspect-[4/3] block h-auto w-full object-cover transition duration-500 group-hover:scale-105" %>
+              <span class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent px-5 pb-5 pt-14 text-sm font-medium text-white">
+                <%= image["caption"] %>
+              </span>
+            </button>
+          <% end %>
+        </div>
+      </section>
+    <% end %>
+  </div>
+
+  <dialog
+    class="fixed inset-0 m-auto max-h-none max-w-none overflow-visible bg-transparent p-0 text-white backdrop:bg-black/90"
+    aria-label="Image viewer"
+    data-gallery-target="lightbox"
+    data-action="click->gallery#closeOnBackdrop close->gallery#restoreFocus"
+  >
+    <div class="mx-auto w-[96vw] max-w-6xl">
+      <div class="mb-3 flex justify-end">
+        <button
+          type="button"
+          class="rounded-full bg-white/10 p-3 text-white transition hover:bg-white/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-400"
+          aria-label="Close image viewer"
+          data-gallery-target="closeButton"
+          data-action="click->gallery#close"
+        >
+          <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 6l12 12M18 6L6 18" />
+          </svg>
+        </button>
+      </div>
+
+      <div class="relative flex min-h-48 items-center justify-center">
+        <img class="max-h-[78vh] max-w-full rounded-lg object-contain shadow-2xl" alt="" data-gallery-target="lightboxImage">
+
+        <button
+          type="button"
+          class="absolute left-3 rounded-full bg-black/50 p-3 text-white transition hover:bg-black/80 focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 sm:left-5"
+          aria-label="Previous image"
+          data-action="click->gallery#previous"
+        >
+          <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+          </svg>
+        </button>
+
+        <button
+          type="button"
+          class="absolute right-3 rounded-full bg-black/50 p-3 text-white transition hover:bg-black/80 focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 sm:right-5"
+          aria-label="Next image"
+          data-action="click->gallery#next"
+        >
+          <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+          </svg>
+        </button>
+      </div>
+
+      <p class="mt-4 text-center text-sm text-stone-300" data-gallery-target="caption"></p>
+    </div>
+  </dialog>
+</main>

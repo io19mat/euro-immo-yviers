@@ -1,0 +1,37 @@
+property:
+  eyebrow: "A characterful home in southwest France"
+  headline: "A quieter kind of luxury"
+  location: "Yviers, Charente, Nouvelle-Aquitaine"
+  price: "€178,080"
+  fees: "€10,080"
+  net: "€168,000"
+  ref: "706918"
+  hero_image: "house/house_12.jpeg"
+  hero_alt: "The house and its sunlit courtyard in the Charente"
+
+introduction:
+  eyebrow: "The art of slowing down"
+  title: "Find your place in the Charente"
+  description: "A welcoming home, a slower rhythm, and the landscapes of southwest France just beyond the door. Discover a characterful place to make your own, with the charms of the Charente countryside all around."
+
+highlights:
+  - title: "A home with a sense of place"
+    description: "A relaxed country home with timber shutters, a sunny courtyard, and the understated character of the French countryside."
+    image: "house/house_5.jpeg"
+    alt: "The house's timber shutters and courtyard"
+  - title: "A warm welcome inside"
+    description: "Comfortable, personal spaces make this an inviting place to gather, unwind, and settle into a different pace of life."
+    image: "interior/interior_4.jpg"
+    alt: "The welcoming country kitchen"
+  - title: "A little more room to breathe"
+    description: "Find a quiet spot beneath the trees, enjoy a meal outdoors, and take in the calm of the garden."
+    image: "garden/garden_1.jpeg"
+    alt: "A shaded seating area in the garden"
+
+location:
+  eyebrow: "A lovely corner of France"
+  title: "The Charente, at your own pace"
+  description: "Surrounded by the gentle countryside of southwest France, with the historic market town of Chalais close by. The map shows the local area only; the property's exact location is shared on request."
+  map_label: "Approximate local area"
+  map_embed_url: "https://www.openstreetmap.org/export/embed?bbox=-0.020577907562255863%2C45.267743736470756%2C0.008904933929443361%2C45.2794162252468&layer=mapnik"
+  map_link_url: "https://www.openstreetmap.org/#map=16/45.27358/-0.00584"

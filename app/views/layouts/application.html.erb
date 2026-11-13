@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= content_for(:title) || "A House in Yviers" %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="Property Template">
+    <meta name="mobile-web-app-capable" content="yes">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= yield :head %>
+
+    <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
+    <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
+
+    <link rel="icon" href="/icon.svg" type="image/svg+xml">
+
+    <%# Includes all stylesheet files in app/assets/stylesheets %>
+    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body>
+  <header class="site-navbar sticky top-0 z-50 border-b border-stone-200<%= " site-navbar--home" if current_page?(root_path) %>" data-controller="navbar">
+    <nav class="mx-auto w-full max-w-7xl px-4 py-4 sm:px-6 lg:px-8" data-controller="mobile-menu">
+      <div class="flex items-center justify-between">
+        <!-- Brand / Logo Link -->
+        <%= link_to root_path, class: "flex items-center gap-2 sm:gap-3" do %>
+          <%= image_tag "euro-immo-logo.png", alt: "Euro Immo", class: "h-[50px] w-auto" %>
+        <% end %>
+        <!-- Desktop Nav Links -->
+        <div class="hidden items-center gap-6 text-sm font-semibold uppercase tracking-[0.24em] text-stone-700 md:flex">
+          <a href="/" class="transition hover:text-stone-950">Home</a>
+          <a href="/gallery" class="transition hover:text-stone-950">Gallery</a>
+          <a href="/lifestyle" class="transition hover:text-stone-950">Lifestyle</a>
+          <a href="/details" class="transition hover:text-stone-950">Details</a>
+          <a href="/contact" class="transition hover:text-stone-950">Contact</a>
+        </div>
+        <!-- Mobile Menu Button -->
+        <button
+          type="button"
+          class="inline-flex items-center justify-center rounded-md p-2 text-stone-700 hover:text-stone-950 md:hidden"
+          data-mobile-menu-target="button"
+          data-action="click->mobile-menu#toggle"
+          aria-controls="mobile-menu-panel"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5M3.75 17.25h16.5"></path>
+          </svg>
+        </button>
+      </div>
+      <!-- Mobile Dropdown Panel -->
+      <div id="mobile-menu-panel" class="hidden pt-3 md:hidden" data-mobile-menu-target="panel" data-action="click->mobile-menu#closeOnLink">
+        <div class="flex flex-col gap-2 rounded-2xl border border-stone-200 bg-stone-50 p-3">
+          <a href="/" class="rounded-md px-3 py-2 text-sm font-semibold uppercase tracking-[0.2em] text-stone-700 transition hover:bg-stone-100 hover:text-stone-950">Home</a>
+          <a href="/gallery" class="rounded-md px-3 py-2 text-sm font-semibold uppercase tracking-[0.2em] text-stone-700 transition hover:bg-stone-100 hover:text-stone-950">Gallery</a>
+          <a href="/lifestyle" class="rounded-md px-3 py-2 text-sm font-semibold uppercase tracking-[0.2em] text-stone-700 transition hover:bg-stone-100 hover:text-stone-950">Lifestyle</a>
+          <a href="/details" class="rounded-md px-3 py-2 text-sm font-semibold uppercase tracking-[0.2em] text-stone-700 transition hover:bg-stone-100 hover:text-stone-950">Details</a>
+          <a href="/contact" class="rounded-md px-3 py-2 text-sm font-semibold uppercase tracking-[0.2em] text-stone-700 transition hover:bg-stone-100 hover:text-stone-950">Contact</a>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+    <%= yield %>
+
+    <footer class="bg-stone-950 text-stone-300">
+      <div class="mx-auto grid max-w-7xl gap-12 px-6 py-16 sm:px-8 md:grid-cols-[1.4fr_0.7fr_0.9fr] md:gap-16 md:py-20">
+        <div>
+          <a href="<%= root_path %>" class="inline-block font-serif text-2xl tracking-tight text-white transition hover:text-amber-200">
+            Trebios
+          </a>
+          <p class="mt-2 text-sm tracking-wide text-stone-500">trebios.com</p>
+          <p class="mt-6 max-w-md leading-relaxed text-stone-400">
+            A more considered way to present distinctive homes in France: thoughtful, detailed property showcases for homeowners and independent estate agents.
+          </p>
+        </div>
+
+        <nav aria-label="Footer navigation">
+          <h2 class="text-xs font-semibold uppercase tracking-[0.2em] text-amber-300">Explore</h2>
+          <ul class="mt-5 space-y-3 text-sm">
+            <li><%= link_to "Home", root_path, class: "transition hover:text-white" %></li>
+            <li><%= link_to "Gallery", gallery_path, class: "transition hover:text-white" %></li>
+            <li><%= link_to "Lifestyle", lifestyle_path, class: "transition hover:text-white" %></li>
+            <li><%= link_to "Property details", details_path, class: "transition hover:text-white" %></li>
+          </ul>
+        </nav>
+
+        <div>
+          <h2 class="text-xs font-semibold uppercase tracking-[0.2em] text-amber-300">A property with a story?</h2>
+          <p class="mt-5 text-sm leading-relaxed text-stone-400">
+            Whether you are selling your own home or representing a distinctive property, let’s start a conversation.
+          </p>
+          <%= link_to "Get in touch", contact_path, class: "mt-5 inline-flex items-center gap-2 border-b border-amber-300 pb-2 text-sm font-medium text-amber-200 transition hover:text-white" %>
+        </div>
+      </div>
+
+      <% footer_contact = load_content("contact") %>
+      <% agency = footer_contact.fetch("agency", {}) %>
+      <% if footer_contact["profile_type"] == "agency" && agency["name"].present? && agency["carte_professionnelle"].present? %>
+        <div class="border-t border-white/10 px-6 py-6 sm:px-8">
+          <p class="mx-auto max-w-7xl text-sm leading-relaxed text-stone-400">
+            Digital showcase produced by Trebios on behalf of <%= agency["name"] %> (Carte Professionnelle n° <%= agency["carte_professionnelle"] %>). All property details, diagnostics, and pricing are provided by and the sole responsibility of the listing agency.
+          </p>
+        </div>
+      <% end %>
+
+      <div class="border-t border-white/10">
+        <div class="mx-auto flex max-w-7xl flex-col gap-2 px-6 py-5 text-xs text-stone-500 sm:px-8 md:flex-row md:items-center md:justify-between">
+          <p>&copy; <%= Date.current.year %> Trebios</p>
+          <p>Thoughtfully presented homes in France</p>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

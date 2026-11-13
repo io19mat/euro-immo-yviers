@@ -1,0 +1,99 @@
+<% details = load_content("details") %>
+<% home = load_content("home") %>
+<% property = home.fetch("property") %>
+<% content_for :title, "Property details | #{property.fetch("location")}" %>
+
+<main class="bg-stone-50 text-stone-900">
+  <section class="px-6 pb-16 pt-20 sm:px-8 sm:pb-20 sm:pt-28">
+    <div class="mx-auto max-w-7xl">
+      <div class="max-w-3xl">
+        <p class="text-xs font-semibold uppercase tracking-[0.25em] text-amber-800"><%= details.fetch("eyebrow") %></p>
+        <h1 class="mt-5 font-serif text-5xl leading-tight tracking-tight sm:text-6xl"><%= details.fetch("title") %></h1>
+        <p class="mt-7 max-w-2xl text-lg leading-relaxed text-stone-600"><%= details.fetch("introduction") %></p>
+      </div>
+
+      <dl class="mt-12 grid grid-cols-2 divide-x divide-y divide-stone-200 border border-stone-200 sm:grid-cols-4 sm:divide-y-0">
+        <% details.fetch("specifications").each do |specification| %>
+          <div class="px-4 py-6 sm:px-7 sm:py-8">
+            <dt class="text-xs font-semibold uppercase tracking-[0.15em] text-stone-500"><%= specification.fetch("label") %></dt>
+            <dd class="mt-3 font-serif text-xl text-stone-900 sm:text-2xl"><%= specification.fetch("value") %></dd>
+          </div>
+        <% end %>
+      </dl>
+      <p class="mt-4 text-sm text-stone-500">For further information, please <a href="<%= contact_path %>" class="font-medium text-amber-900 underline decoration-stone-300 underline-offset-4 hover:decoration-amber-900">get in touch</a>.</p>
+    </div>
+  </section>
+
+  <section class="bg-white px-6 py-20 sm:px-8 sm:py-28">
+    <div class="mx-auto max-w-7xl">
+      <% details.fetch("sections").each_with_index do |section, index| %>
+        <article class="<%= index.positive? ? 'mt-20 border-t border-stone-200 pt-20 sm:mt-28 sm:pt-28' : '' %> grid items-center gap-10 md:grid-cols-2 md:gap-16">
+          <div class="<%= index.odd? ? 'md:order-2' : '' %>">
+            <p class="text-xs font-semibold uppercase tracking-[0.25em] text-amber-800"><%= section.fetch("eyebrow") %></p>
+            <h2 class="mt-4 max-w-lg font-serif text-4xl leading-tight tracking-tight sm:text-5xl"><%= section.fetch("title") %></h2>
+            <p class="mt-6 max-w-xl text-lg leading-relaxed text-stone-600"><%= section.fetch("description") %></p>
+          </div>
+          <div class="<%= index.odd? ? 'md:order-1' : '' %> overflow-hidden bg-stone-100">
+            <%= image_tag section.fetch("image"),
+                alt: section.fetch("alt"),
+                class: "aspect-[4/3] w-full object-cover",
+                loading: "lazy" %>
+          </div>
+        </article>
+      <% end %>
+    </div>
+  </section>
+
+  <section class="bg-stone-100 px-6 py-20 sm:px-8 sm:py-28">
+    <div class="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:items-center lg:gap-20">
+      <div>
+        <p class="text-xs font-semibold uppercase tracking-[0.25em] text-amber-800">The certification</p>
+        <h2 class="mt-4 font-serif text-4xl tracking-tight sm:text-5xl"><%= details.dig("energy", "title") %></h2>
+        <p class="mt-6 leading-relaxed text-stone-600"><%= details.dig("energy", "description") %></p>
+
+        <dl class="mt-8 grid grid-cols-2 gap-3">
+          <div class="bg-white p-5">
+            <dt class="text-xs font-semibold uppercase tracking-[0.12em] text-stone-500">Energy rating</dt>
+            <dd class="mt-2 flex items-center gap-3 font-serif text-3xl">
+              <span class="flex h-11 w-11 items-center justify-center bg-rose-700 text-lg font-semibold text-white"><%= details.dig("energy", "energy_rating") %></span>
+              <span class="text-base text-stone-700"><%= details.dig("energy", "energy_use") %></span>
+            </dd>
+          </div>
+          <div class="bg-white p-5">
+            <dt class="text-xs font-semibold uppercase tracking-[0.12em] text-stone-500">Climate rating</dt>
+            <dd class="mt-2 flex items-center gap-3 font-serif text-3xl">
+              <span class="flex h-11 w-11 items-center justify-center bg-rose-700 text-lg font-semibold text-white"><%= details.dig("energy", "climate_rating") %></span>
+              <span class="text-base text-stone-700"><%= details.dig("energy", "emissions") %></span>
+            </dd>
+          </div>
+        </dl>
+
+        <p class="mt-5 text-sm text-stone-600">
+          Estimated annual energy costs:
+          <span class="font-semibold text-stone-900"><%= details.dig("energy", "estimated_costs") %></span>
+        </p>
+        <p class="mt-1 text-xs text-stone-500"><%= details.dig("energy", "cost_period") %></p>
+      </div>
+
+      <figure class="bg-white p-4 shadow-sm sm:p-6">
+        <a href="<%= image_path(details.dig("energy", "certificate")) %>" target="_blank" rel="noopener noreferrer" aria-label="Open the full energy certificate in a new tab">
+          <%= image_tag details.dig("energy", "certificate"),
+              alt: details.dig("energy", "certificate_alt"),
+              class: "mx-auto max-h-[42rem] w-full object-contain",
+              loading: "lazy" %>
+        </a>
+        <figcaption class="mt-4 text-center text-sm text-stone-500">French energy performance certificate (DPE) · Select to view full size</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="bg-stone-900 px-6 py-20 text-center text-white sm:px-8 sm:py-24">
+    <p class="text-xs font-semibold uppercase tracking-[0.25em] text-amber-300">A little more about the home</p>
+    <h2 class="mx-auto mt-5 max-w-2xl font-serif text-4xl leading-tight tracking-tight sm:text-5xl"><%= details.dig("enquiry", "title") %></h2>
+    <p class="mx-auto mt-5 max-w-xl leading-relaxed text-stone-300"><%= details.dig("enquiry", "description") %></p>
+    <a href="<%= contact_path %>" class="mt-8 inline-flex items-center gap-3 bg-stone-50 px-7 py-4 text-sm font-semibold text-stone-900 transition hover:bg-amber-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-300 focus-visible:ring-offset-2 focus-visible:ring-offset-stone-900">
+      Enquire about this home
+      <span aria-hidden="true">→</span>
+    </a>
+  </section>
+</main>

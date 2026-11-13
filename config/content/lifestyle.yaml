@@ -1,0 +1,53 @@
+# config/content/lifestyle.yml
+page_title: "This is where we live"
+page_subtitle: "More than a home—an entire way of life."
+
+sections:
+  - title: "Our Favourite Dog Walk"
+    subtitle: "Ancient trees & Country Air"
+    description: "Step out of the garden, walk down a traffic-free road, and you will be here within five minutes. To be able to walk the dog down this ancient track and into the Charente countryside is a privilege. This part of the world has been a desirable place to live since the Celts of ancient Gaul. They were here, the Romans were here, now, we are here."
+    image: "lifestyle/lifestyle7.jpg"
+    alt: "Scenic walk through the Charente countryside"
+
+  - title: "The Local Lake"
+    subtitle: "Peace and Stillness"
+    description: "About five minutes drive from home, there's this wonderful lake, surrounded by oak and pine forests. The lake is man-made, trapping water fed in by several streams dotted around. The water is used by local farmers in the heat of summer to water their crops. You can walk around the lake, which is a wonderful experience regardless of the time of year. An addictive part of the world, and one our dog, Bob, thinks belongs to him - and this is his swimming pool."
+    image: "lifestyle/lifestyle2.jpg"
+    alt: "The local lake surrounded by oak and pine forests"
+
+  - title: "The Beach"
+    subtitle: "Our beach"
+    description: "Not too far away is the village of Aubeterre-sur-Dronne, a village that gets its Latin name from the white rocks it is built upon and within. Below the village is the river it gets its name from. And at that river is this beach. We call it our beach, but we have to share it in the summer. We don't mind, there's enough space. There's also a fantastic beach-bar with a restaurant, where you can have an afternoon meal, a beer or two, or an ice cream. The beach is in walking distance to the campsite. In summer, it can get hot and swimming in the river is a wonderful way to cool down. A very special place indeed."
+    image: "lifestyle/aubeterre_beach.jpeg"
+    alt: "Secluded sandy cove and clear water"
+
+  - title: "Another Beach"
+    subtitle: "A bit further away, but worth it"
+    description: "In the Dordogne region there's a place called La Jemaye. It's about 40 minutes drive from the house, through some of the most stunning countryside you can imagine. On the way you will drive through one picturesque village after another. La Jemaye has a lake, a very big lake. It was created by the monks of a nearby monastery in the 1500s and filled with fish for the table.
+    Today, it is a peaceful recreational area, with a beach. This photo is south facing, and in summer the sun is equally as hot as the Mediterranean. It can get busy, but most people come for the food. There are a couple of beach restaurants that serve excellent food, and a large restaurant away from the beach. Just a bit further along, down a shady lane, you'll find another restaurant called the Handsome Boar. Pop in, you'll like it."
+    image: "lifestyle/lake.jpeg"
+    alt: "Secluded sandy cove and clear water"
+
+  - title: "Sunflowers"
+    subtitle: "Fields and fields of sunflowers"
+    description: "The Charente is a land of sunflowers. In the summer, the fields are full of them. They are a wonderful sight, and a reminder of the agricultural heritage of the region. The sunflowers are harvested for their seeds, which are used to produce sunflower oil. This field is one minute's walk from the garden gate."
+    image: "lifestyle/sunflowers.jpeg"
+    alt: "Fields of sunflowers in the Charente"
+
+  - title: "Off the Beaten Track"
+    subtitle: "A quiet corner of the Charente"
+    description: "Not too far from Bob's private swimming pool are tracks that bend and wind through the forests. We can spend hours walking around here: Oh look, I wonder where that goes?"
+    image: "lifestyle/lifestyle4.jpg"
+    alt: "A quiet corner of the Charente"
+
+  - title: "Used up water"
+    subtitle: "A functional reality"
+    description: "The nearby lake is a working lake. It is used by the local farmers to water their crops in the summer, when it can get very hot and dry. This huge lake can soon be drained to nearly empty. It's fascinating to see as the months go by, and feel part of an agricultural way of life that has continued in the Charente for millennia. But, don't be too concerned, it likes to rain over the winter months and this lake will soon fill up, right to the top."
+    image: "lifestyle/lifestyle11.jpg"
+    alt: "A quiet corner of the Charente"
+
+  - title: "A rare frost"
+    subtitle: "A little bit chilly, but beautiful"
+    description: "The Charente can get hot, and Yviers itself has a micro-climate where the summer arrives quickly, and temperatures can move into the mid 30s degrees and stay there for weeks during the day - it is comfortable at night. However, the wonderful summers aside, every now and then, winter can produce a frost. It's cold and it's stunning. It can sometimes snow, but it is very rare. Again, Yviers is usually protected from the worst of the winter weather. We've seen snow forecast all around us, but all we get is rain - personally, we like snow."
+    image: "lifestyle/lifestyle9.jpg"
+    alt: "A quiet corner of the Charente"

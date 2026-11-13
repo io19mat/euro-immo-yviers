@@ -1,0 +1,149 @@
+<% home = load_content("home") %>
+<% property = home.fetch("property") %>
+<% content_for :title, "#{property.fetch("headline")} | #{property.fetch("location")}" %>
+
+<section class="relative isolate flex min-h-[100svh] items-end overflow-hidden bg-stone-950 text-white">
+  <%= image_tag property.fetch("hero_image"),
+      alt: property.fetch("hero_alt"),
+      class: "absolute inset-0 -z-20 h-full w-full object-cover object-center",
+      fetchpriority: "high" %>
+  <div class="absolute inset-0 -z-10 bg-gradient-to-b from-black/35 via-black/10 to-black/75"></div>
+
+  <div class="mx-auto grid w-full max-w-7xl gap-10 px-6 pb-12 pt-36 sm:px-8 sm:pb-16 lg:grid-cols-[1fr_auto] lg:items-end lg:px-12 lg:pb-20">
+    <div class="max-w-3xl">
+      <p class="mb-5 text-xs font-semibold uppercase tracking-[0.3em] text-amber-200 sm:text-sm">
+        <%= property.fetch("eyebrow") %>
+      </p>
+      <h1 class="font-serif text-5xl font-medium leading-[1.05] tracking-tight sm:text-6xl lg:text-8xl">
+        <%= property.fetch("headline") %>
+      </h1>
+      <p class="mt-6 flex items-center gap-2 text-sm text-white/85 sm:text-base">
+        <svg class="h-5 w-5 shrink-0 text-amber-200" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 21s7-5.25 7-12a7 7 0 1 0-14 0c0 6.75 7 12 7 12Z" />
+          <circle cx="12" cy="9" r="2.25" />
+        </svg>
+        <%= property.fetch("location") %>
+      </p>
+    </div>
+
+    <div class="flex flex-col items-start gap-5 lg:items-end lg:text-right">
+      <div>
+        <p class="text-xs uppercase tracking-[0.2em] text-white/70">Price</p>
+        <p class="mt-1 font-serif text-2xl text-white sm:text-3xl"><%= property.fetch("price") %></p>
+      </div>
+      <div>
+        <p class="text-xs uppercase tracking-[0.2em] text-white/70">Agency Fees: 6%</p>
+        <p class="mt-1 font-serif text-2xl text-white sm:text-3xl"><%= property.fetch("fees") %></p>
+      </div>
+      <div>
+        <p class="text-xs uppercase tracking-[0.2em] text-white/70">Net</p>
+        <p class="mt-1 font-serif text-2xl text-white sm:text-3xl"><%= property.fetch("net") %></p>
+      </div>
+      <div>
+        <p class="text-xs uppercase tracking-[0.2em] text-white/70">Reference</p>
+        <p class="mt-1 font-serif text-2xl text-white sm:text-3xl"><%= property.fetch("ref") %></p>
+      </div>
+      <a href="#the-home" data-controller="smooth-scroll" data-action="click->smooth-scroll#scroll" class="inline-flex items-center gap-3 rounded-full border border-white/60 px-6 py-3 text-sm font-medium text-white transition hover:border-white hover:bg-white hover:text-stone-950 focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-200 focus-visible:ring-offset-2 focus-visible:ring-offset-stone-900">
+        Discover the home
+        <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 5v14m7-7-7 7-7-7" />
+        </svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<main class="bg-stone-50 text-stone-900">
+  <section id="the-home" tabindex="-1" class="px-6 py-24 sm:px-8 sm:py-32">
+    <div class="mx-auto grid max-w-7xl gap-8 md:grid-cols-[0.7fr_1.3fr] md:gap-20">
+      <div>
+        <p class="text-xs font-semibold uppercase tracking-[0.25em] text-amber-800"><%= home.dig("introduction", "eyebrow") %></p>
+        <h2 class="mt-5 max-w-sm font-serif text-4xl leading-tight tracking-tight sm:text-5xl"><%= home.dig("introduction", "title") %></h2>
+      </div>
+      <div class="flex flex-col items-start justify-end">
+        <p class="max-w-2xl text-lg leading-relaxed text-stone-600 sm:text-xl"><%= home.dig("introduction", "description") %></p>
+        <a href="<%= gallery_path %>" class="mt-8 inline-flex items-center gap-3 border-b border-stone-400 pb-2 text-sm font-semibold transition hover:border-stone-900">
+          Explore the gallery
+          <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14m-7-7 7 7-7 7" />
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-white px-6 py-20 sm:px-8 sm:py-28">
+    <div class="mx-auto max-w-7xl">
+      <div class="mb-12 flex flex-col gap-4 sm:mb-16 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <p class="text-xs font-semibold uppercase tracking-[0.25em] text-amber-800">A closer look</p>
+          <h2 class="mt-4 font-serif text-4xl tracking-tight sm:text-5xl">A home to make your own</h2>
+        </div>
+        <a href="<%= gallery_path %>" class="inline-flex items-center gap-2 text-sm font-semibold transition hover:text-amber-800">
+          View all photographs
+          <span aria-hidden="true">→</span>
+        </a>
+      </div>
+
+      <div class="grid gap-8 md:grid-cols-3">
+        <% home.fetch("highlights").each_with_index do |highlight, index| %>
+          <article>
+            <div class="overflow-hidden bg-stone-100">
+              <%= image_tag highlight.fetch("image"),
+                  alt: highlight.fetch("alt"),
+                  class: "aspect-[4/5] w-full object-cover transition duration-700 hover:scale-[1.03]",
+                  loading: "lazy" %>
+            </div>
+            <h3 class="mt-6 font-serif text-2xl"><%= highlight.fetch("title") %></h3>
+            <p class="mt-3 leading-relaxed text-stone-600"><%= highlight.fetch("description") %></p>
+          </article>
+        <% end %>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-stone-100 px-6 py-20 sm:px-8 sm:py-28">
+    <div class="mx-auto grid max-w-7xl overflow-hidden bg-stone-900 text-white lg:grid-cols-2">
+      <div class="flex flex-col justify-center px-8 py-12 sm:px-14 sm:py-16">
+        <p class="text-xs font-semibold uppercase tracking-[0.25em] text-amber-300"><%= home.dig("location", "eyebrow") %></p>
+        <h2 class="mt-5 font-serif text-4xl leading-tight sm:text-5xl"><%= home.dig("location", "title") %></h2>
+        <p class="mt-6 max-w-xl leading-relaxed text-stone-300"><%= home.dig("location", "description") %></p>
+        <a
+          href="<%= home.dig("location", "map_link_url") %>"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="mt-8 inline-flex items-center gap-2 self-start border-b border-amber-300 pb-2 text-sm font-medium text-amber-200 transition hover:text-white"
+        >
+          Explore the local area
+          <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H18v4.5M18 6l-7.5 7.5" />
+            <path stroke-linecap="round" stroke-linejoin="round" d="M18 13.5V18H6V6h4.5" />
+          </svg>
+        </a>
+      </div>
+
+      <div class="relative min-h-80 bg-stone-200 sm:min-h-[28rem]">
+        <iframe
+          src="<%= home.dig("location", "map_embed_url") %>"
+          title="<%= home.dig("location", "map_label") %>"
+          class="absolute inset-0 h-full w-full border-0"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+        ></iframe>
+        <p class="absolute bottom-4 left-4 rounded-full bg-white/95 px-4 py-2 text-xs font-medium text-stone-700 shadow">
+          <%= home.dig("location", "map_label") %>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-stone-50 px-6 py-20 text-center sm:px-8 sm:py-28">
+    <p class="text-xs font-semibold uppercase tracking-[0.25em] text-amber-800">Your next chapter</p>
+    <h2 class="mx-auto mt-5 max-w-2xl font-serif text-4xl leading-tight tracking-tight sm:text-5xl">Could this be your place in the Charente?</h2>
+    <p class="mx-auto mt-5 max-w-xl leading-relaxed text-stone-600">Get in touch to learn more about the home and its setting.</p>
+    <a href="<%= contact_path %>" class="mt-8 inline-flex items-center gap-3 bg-stone-900 px-7 py-4 text-sm font-semibold text-white transition hover:bg-amber-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-700 focus-visible:ring-offset-2">
+      Enquire about this home
+      <span aria-hidden="true">→</span>
+    </a>
+  </section>
+</main>

@@ -1,0 +1,28 @@
+profile_type: "agency"
+
+eyebrow: "A personal conversation"
+title: "Let's talk about the home"
+description: "For more information, to arrange a visit, or to ask a question, you can get in touch directly."
+
+seller:
+  name: ""
+  email: ""
+  phone: ""
+  address: []
+
+agent:
+  name: "Town and Country Property France"
+  agent_name: "Catherine DANNREUTHER"
+  email: "catherine@tcpf.com"
+  website: "https://www.frenchproperty.tcpf.com/706918/"
+  phone: "+330633255427"
+  address: [7 Avenue de la Gare, 16210 Chalais]
+  map_label: "Estate agent office"
+  map_embed_url: "https://www.openstreetmap.org/export/embed?bbox=0.03742218017578125%2C45.27134162559927%2C0.04205167293548584%2C45.2742371377777&amp;layer=mapnik"
+  map_link_url: "https://www.openstreetmap.org/#map=18/45.272789/0.039737"
+
+agency:
+  name: "Town and Country Property France"
+  carte_professionnelle: "CPI 1601 2018 000 026 719"
+
+private_seller_map_label: "Approximate property location"

@@ -1,0 +1,114 @@
+<% contact = load_content("contact") %>
+<% home = load_content("home") %>
+<% is_private_seller = contact.fetch("profile_type") == "private_seller" %>
+<% profile = contact.fetch(is_private_seller ? "seller" : "agent") %>
+<% map_label = is_private_seller ? contact.fetch("private_seller_map_label") : contact.dig("agent", "map_label") %>
+<% map_embed_url = is_private_seller ? home.dig("location", "map_embed_url") : contact.dig("agent", "map_embed_url") %>
+<% map_link_url = is_private_seller ? home.dig("location", "map_link_url") : contact.dig("agent", "map_link_url") %>
+<% content_for :title, "Contact | Town and Country Property France" %>
+
+<main class="bg-stone-50 text-stone-900">
+  <section class="px-6 pb-12 pt-20 sm:px-8 sm:pb-16 sm:pt-28">
+    <div class="mx-auto max-w-7xl">
+      <p class="text-xs font-semibold uppercase tracking-[0.25em] text-amber-800"><%= contact.fetch("eyebrow") %></p>
+      <h1 class="mt-5 max-w-3xl font-serif text-5xl leading-tight tracking-tight sm:text-6xl"><%= contact.fetch("title") %></h1>
+      <p class="mt-6 max-w-2xl text-lg leading-relaxed text-stone-600"><%= contact.fetch("description") %></p>
+    </div>
+  </section>
+
+  <section class="px-6 pb-20 sm:px-8 sm:pb-28">
+    <div class="mx-auto grid max-w-7xl overflow-hidden bg-white shadow-sm lg:grid-cols-[0.85fr_1.15fr]">
+      <div class="flex flex-col justify-center p-8 sm:p-12 lg:p-14">
+        <p class="text-xs font-semibold uppercase tracking-[0.2em] text-amber-800">
+          <%= is_private_seller ? "The owner" : "Your local agent" %>
+        </p>
+        <h2 class="mt-4 font-serif text-3xl sm:text-4xl"><%= profile.fetch("name").presence || (is_private_seller ? "Private seller" : "Local estate agent") %></h2>
+        <p class="mt-4 leading-relaxed text-stone-600">
+          <%= is_private_seller ? "Speak directly with the owner about the property and its setting." : "Contact the estate agent for property information, viewings, and local expertise." %>
+        </p>
+
+        <% has_contact_details = profile["agent_name"].present? || profile["email"].present? || profile["phone"].present? || profile["address"].present? %>
+
+        <% if has_contact_details %>
+          <dl class="mt-8 space-y-6 border-t border-stone-200 pt-7">
+            <% if profile["agent_name"].present? %>
+              <div>
+                <dt class="text-xs font-semibold uppercase tracking-[0.15em] text-stone-500">Agent Name</dt>
+                <dd class="mt-2">
+                  <%= profile["agent_name"] %>
+                </dd>
+              </div>
+            <% end %>
+            <% if profile["email"].present? %>
+              <div>
+                <dt class="text-xs font-semibold uppercase tracking-[0.15em] text-stone-500">Email</dt>
+                <dd class="mt-2">
+                  <%= mail_to profile["email"], profile["email"], class: "break-all text-lg text-stone-900 underline decoration-stone-300 underline-offset-4 transition hover:decoration-amber-800" %>
+                </dd>
+              </div>
+            <% end %>
+
+            <% if profile["phone"].present? %>
+              <div>
+                <dt class="text-xs font-semibold uppercase tracking-[0.15em] text-stone-500">Telephone</dt>
+                <dd class="mt-2">
+                  <%= link_to profile["phone"], "tel:#{profile["phone"].delete(" ").delete(".")}", class: "text-lg text-stone-900 underline decoration-stone-300 underline-offset-4 transition hover:decoration-amber-800" %>
+                </dd>
+              </div>
+            <% end %>
+
+            <% if profile["website"].present? %>
+              <div>
+                <dt class="text-xs font-semibold uppercase tracking-[0.15em] text-stone-500">Website</dt>
+                <dd class="mt-2">
+                  <%= link_to profile["website"], profile["website"], target: "_blank", rel: "noopener noreferrer", class: "text-lg text-stone-900 underline decoration-stone-300 underline-offset-4 transition hover:decoration-amber-800" %>
+                </dd>
+              </div>
+            <% end %>
+
+            <% if profile["address"].present? %>
+              <div>
+                <dt class="text-xs font-semibold uppercase tracking-[0.15em] text-stone-500"><%= is_private_seller ? "Address" : "Office address" %></dt>
+                <dd class="mt-2 leading-relaxed text-stone-700">
+                  <% profile["address"].each do |line| %>
+                    <%= line %><br>
+                  <% end %>
+                </dd>
+              </div>
+            <% end %>
+          </dl>
+        <% else %>
+          <p class="mt-8 border-t border-stone-200 pt-6 text-sm leading-relaxed text-stone-500">
+            Direct contact details will be added here.
+          </p>
+        <% end %>
+
+        <p class="mt-8 text-xs leading-relaxed text-stone-500">
+          <%= is_private_seller ? "The map marks the approximate property area; the exact address is shared directly with prospective buyers." : "The map shows the agent’s office location." %>
+        </p>
+      </div>
+
+      <div class="relative min-h-80 bg-stone-200 sm:min-h-[30rem]">
+        <% if map_embed_url.present? %>
+          <iframe
+            src="<%= map_embed_url %>"
+            title="<%= map_label %>"
+            class="absolute inset-0 h-full w-full border-0"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+          ></iframe>
+          <p class="absolute bottom-4 left-4 rounded-full bg-white/95 px-4 py-2 text-xs font-medium text-stone-700 shadow">
+            <%= map_label %>
+          </p>
+          <% if map_link_url.present? %>
+            <%= link_to "Open map", map_link_url, target: "_blank", rel: "noopener noreferrer", class: "absolute bottom-4 right-4 rounded-full bg-stone-900/90 px-4 py-2 text-xs font-medium text-white shadow transition hover:bg-stone-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-700" %>
+          <% end %>
+        <% else %>
+          <div class="flex h-full min-h-80 items-center justify-center p-8 text-center sm:min-h-[30rem]">
+            <p class="max-w-sm text-sm leading-relaxed text-stone-600">Add the office map URL in <code class="rounded bg-white px-1.5 py-1 text-stone-800">config/content/contact.yaml</code> to show the agent’s location here.</p>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </section>
+</main>

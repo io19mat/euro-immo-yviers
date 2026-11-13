@@ -1,0 +1,35 @@
+<%# app/views/pages/lifestyle.html.erb %>
+<% data = load_content('lifestyle') %>
+
+<%# Page Header %>
+<section class="bg-stone-50 px-6 pt-24 pb-8 text-center text-stone-900">
+  <div class="max-w-3xl mx-auto">
+    <p class="mb-3 text-sm font-medium uppercase tracking-[0.25em] text-amber-800">The surroundings</p>
+    <h1 class="font-serif text-4xl tracking-tight md:text-5xl mb-4"><%= data['page_title'] %></h1>
+    <p class="text-lg text-stone-600"><%= data['page_subtitle'] %></p>
+  </div>
+</section>
+
+<%# Lifestyle Sections Loop %>
+<div class="bg-stone-50 text-stone-900 divide-y divide-stone-200">
+  <% data['sections'].each_with_index do |section, index| %>
+    <section class="<%= index.zero? ? 'px-6 pt-10 pb-20 md:pt-12 md:pb-24' : 'px-6 py-20 md:py-24' %>">
+      <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-16 items-center">
+        
+        <%# Alternate column order based on even/odd index %>
+        <div class="<%= index.even? ? 'order-1 md:order-1' : 'order-1 md:order-2' %>">
+          <span class="text-amber-800 font-medium text-sm tracking-wider uppercase"><%= section['subtitle'] %></span>
+          <h2 class="font-serif text-3xl md:text-4xl mt-2 mb-6"><%= section['title'] %></h2>
+          <p class="text-stone-600 text-lg leading-relaxed"><%= section['description'] %></p>
+        </div>
+
+        <div class="<%= index.even? ? 'order-2 md:order-2' : 'order-2 md:order-1' %>">
+          <div class="overflow-hidden rounded-2xl shadow-xl shadow-stone-900/10 bg-stone-200 aspect-4/3">
+            <%= image_tag section['image'], alt: section['alt'], class: "w-full h-full object-cover hover:scale-105 transition duration-700" %>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  <% end %>
+</div>
